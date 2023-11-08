@@ -4,11 +4,12 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { RepoProps, UserProps } from '@/interface/card.ts'
 
-const CardUser = ({ data }: { data: any }) => {
+const CardUser = ({ data }: { data: UserProps }) => {
   const [expand, setExpand] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [repos, setRepos] = useState<any>()
+  const [repos, setRepos] = useState<RepoProps[]>([])
 
   const getRepo = () => {
     axios.get(data.repos_url, {
@@ -50,7 +51,7 @@ const CardUser = ({ data }: { data: any }) => {
       {
         (expand && repos?.length > 0 ) && <div className='mt-4 space-y-2'>
           {
-            repos.map((repo: any, index: number) => (
+            repos.map((repo: RepoProps, index: number) => (
               <div key={index} className='ml-4 px-4 py-2 rounded-md border border-gray-400/50'>
                 <div className='flex items-center justify-between border-b border-gray-400/50 py-2'>
                   <h1>{ repo.name }</h1>

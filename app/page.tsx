@@ -2,6 +2,7 @@
 
 import CardUser from '@/components/card-user'
 import Search from '@/components/search'
+import { UserProps } from '@/interface/card.ts'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
@@ -9,7 +10,7 @@ import { AiOutlineGithub } from 'react-icons/ai'
 
 const Home = () => {
   const [user, setUser] = useState('')
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<UserProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const getUsers = () => {
@@ -76,7 +77,7 @@ const Home = () => {
                   </svg>
                   <span className='block font-bold mt-2'>Loading...</span>
                 </div>
-              : data?.map((data: any, index: number) => (
+              : data?.map((data: UserProps, index: number) => (
                   <CardUser key={index} data={data} />
                 ))
           }

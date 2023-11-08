@@ -4,13 +4,14 @@
 import { HiXCircle } from 'react-icons/hi'
 import { BiSearch } from 'react-icons/bi'
 import { useState } from 'react'
+import { KeyboardEvent } from '@/interface/search.ts'
 
 const Search = ({ user, setUser, setData }: {
   user: string, setUser: Function, setData: Function
 }) => {
   const [value, setValue] = useState('')
 
-  const handleOnKey = (event:any) => {
+  const handleOnKey = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === 13) {
       setUser(value)
     }
