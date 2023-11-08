@@ -30,14 +30,16 @@ const Search = ({ user, setUser, setData }: {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleOnKey}
         />
-        <HiXCircle
-          className='h-5 w-5 text-gray-400 absolute right-2 top-[11px] cursor-pointer'
-          onClick={() => {
-            setValue('')
-            setUser('')
-            setData()
-          }}
-        />
+        {
+          value?.length > 0 && <HiXCircle
+            className='h-5 w-5 text-gray-400 absolute right-2 top-[11px] cursor-pointer'
+            onClick={() => {
+              setValue('')
+              setUser('')
+              setData()
+            }}
+          />
+        }
       </div>
       <button
         className='bg-green-700 text-white px-4 py-2 w-full rounded-md flex justify-center items-center focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-gray-200'

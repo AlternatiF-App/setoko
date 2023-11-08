@@ -4,6 +4,7 @@ import CardUser from '@/components/card-user'
 import Search from '@/components/search'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { AiOutlineGithub } from 'react-icons/ai'
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
     axios.get(`https://api.github.com/search/users?q=${user}`, {
       headers: {
         Accept: 'application/vnd.github+json',
-        Authorization: 'Bearer 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',
+        Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_GIT_TOKEN,
         'X-GitHub-Api-Version': '2022-11-28'
       }
     })
@@ -26,6 +27,11 @@ const Home = () => {
           setIsLoading(false)
         }, 2000)
       })
+      .catch((error) => {
+        setData([])
+        setIsLoading(false)
+        toast.error(error.response.data.message)
+      })
   }
 
   useEffect(() => {
@@ -34,6 +40,11 @@ const Home = () => {
 
   return (
     <main className='container w-full lg:w-8/12 mx-auto py-6 px-4'>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+
       <Search
         user={user}
         setUser={setUser}

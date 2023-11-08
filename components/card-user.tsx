@@ -3,6 +3,7 @@ import { PiStarLight } from 'react-icons/pi'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const CardUser = ({ data }: { data: any }) => {
   const [expand, setExpand] = useState(false)
@@ -13,13 +14,17 @@ const CardUser = ({ data }: { data: any }) => {
     axios.get(data.repos_url, {
       headers: {
         Accept: 'application/vnd.github+json',
-        Authorization: 'Bearer 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',
+        Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_GIT_TOKEN,
         'X-GitHub-Api-Version': '2022-11-28'
       }
     })
       .then((results) => {
         setRepos(results.data)
         setIsLoading(false)
+      })
+      .catch((error) => {
+        setRepos([])
+        toast.error(error.response.data.message)
       })
   }
 
